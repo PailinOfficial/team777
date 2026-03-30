@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAILIN GROUP - PRIVATE</title>
+    <title>PAILIN GROUP</title>
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <style>
@@ -22,7 +22,7 @@
         textarea { width: 100%; height: 180px; padding: 15px; border-radius: 15px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.4); color: #fff; box-sizing: border-box; outline: none; margin-bottom: 15px; font-size: 14px; }
         .btn-calc { width: 100%; padding: 16px; border: none; border-radius: 15px; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; font-size: 16px; }
         .btn-logout { width: 100%; padding: 10px; margin-top: 25px; border: 1px solid rgba(255, 77, 77, 0.2); border-radius: 12px; background: transparent; color: #ff4d4d; cursor: pointer; font-size: 12px; }
-        .result-box { background: #fff; color: #121212; border-radius: 20px; padding: 20px; margin-top: 20px; white-space: pre-wrap; font-weight: 700; font-family: 'Courier New', monospace; line-height: 1.4; }
+        .result-box { background: #fff; color: #121212; border-radius: 20px; padding: 20px; margin-top: 20px; white-space: pre-wrap; font-weight: 700; font-family: 'Segoe UI', sans-serif; line-height: 1.6; }
         .btn-copy { width: 100%; padding: 12px; background: #121212; color: #fff; border: none; border-radius: 10px; margin-top: 10px; cursor: pointer; font-weight: bold; }
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 10px 25px; border-radius: 50px; display: none; font-size: 14px; z-index: 1000; }
         canvas { display: none; }
@@ -40,14 +40,14 @@
 
     <div id="main-content">
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(0)">📦 รวมแอด(แผนก 7)</button>
+            <button class="tab-btn active" onclick="switchTab(0)">📦 รวมแอด (แผนก 7)</button>
             <button class="tab-btn" onclick="switchTab(1)">⏳ ยอดบริษัท</button>
             <button class="tab-btn" onclick="switchTab(2)">🔍 เช็ค QR</button>
         </div>
 
         <div class="main-panel">
             <div id="sec0" class="content-section active">
-                <textarea id="inAdd7" placeholder="วางข้อมูลยอดที่นี่..."></textarea>
+                <textarea id="inAdd7" placeholder="วางข้อมูลแอดที่นี่..."></textarea>
                 <button class="btn-calc" onclick="calculateAdd7()">🚀 สรุปแอดแผนก 7</button>
                 <div id="resAdd7" style="display:none;" class="result-box"><div id="outAdd7"></div><button class="btn-copy" onclick="copyText('outAdd7')">📋 คัดลอกรายงาน</button></div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="result-box" style="text-align:center;"><div id="outQR" style="font-size:24px; color:var(--primary);">---</div><button class="btn-calc" style="margin-top:10px; padding:10px;" onclick="copyQR()">📋 คัดลอก</button></div>
             </div>
 
-            <button class="btn-logout" onclick="logout()">LOGOUT (ออกจากระบบ)</button>
+            <button class="btn-logout" onclick="logout()">LOGOUT</button>
         </div>
     </div>
 
@@ -96,27 +96,28 @@
         }
 
         function logout() { localStorage.clear(); location.reload(); }
-        
         function switchTab(idx) {
             document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
             document.querySelectorAll('.content-section').forEach((s, i) => s.classList.toggle('active', i === idx));
         }
 
-        const getN = (s) => { let m = s.replace(/,/g, '').match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
+        const getN = (s) => { 
+            let m = s.replace(/,/g, '').match(/(\d+)/); 
+            return m ? parseInt(m[1]) : 0; 
+        };
 
         function calculateAdd7() {
             const input = document.getElementById('inAdd7').value;
             const lines = input.split('\n');
             let d = { open:0, out:0, block:0, dup:0, remain:0, post:0, nopost:0, line:0, bill:0, cutCount:0, last:0, r1:0, rL:0 };
             let cutsMap = {};
-
             lines.forEach(l => {
                 let s = l.trim().replace(/：/g, ':');
                 if (s.includes('เข้าโอเพ่นแชท') || s.includes('ลูกค้าเข้า')) d.open += getN(s);
                 if (s.includes('ออกกลุ่ม')) d.out += getN(s);
                 if (s.includes('บล็อค')) d.block += getN(s);
                 if (s.includes('ซ้ำ')) d.dup += getN(s);
-                if (s.includes('เหลือ')) d.remain += getN(s);
+                if (s.includes('เหลือลูกค้า') || s.includes('เหลือ :')) d.remain += getN(s);
                 if (s.includes('กำลังโพส')) d.post += getN(s);
                 if (s.includes('เข้ามาไม่โพส')) d.nopost += getN(s);
                 if (s.includes('เข้าไลน์ออฟ')) d.line += getN(s);
@@ -124,7 +125,6 @@
                 if (s.includes('งานสุดท้าย')) d.last += getN(s);
                 if (s.includes('ซ่อมแรก')) d.r1 += getN(s);
                 if (s.includes('ซ่อมสุดท้าย')) d.rL += getN(s);
-                
                 if (s.includes('เปิดบิลเชือด')) {
                     let m = s.match(/(\d+[,.]?\d*)\s*\/\s*(\d+[,.]?\d*)/g);
                     if (m) {
@@ -132,41 +132,50 @@
                             let p = x.split('/');
                             let v1 = parseInt(p[0].replace(/,/g, ''));
                             let v2 = parseInt(p[1].replace(/,/g, ''));
-                            let pr = Math.max(v1, v2);
-                            let ct = Math.min(v1, v2);
-                            d.cutCount += ct;
-                            cutsMap[pr] = (cutsMap[pr] || 0) + ct;
+                            let pr = Math.max(v1, v2); let ct = Math.min(v1, v2);
+                            d.cutCount += ct; cutsMap[pr] = (cutsMap[pr] || 0) + ct;
                         });
                     } else { d.cutCount += getN(s); }
                 }
             });
-
             const timeStr = new Date().toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit'});
             let res = `❗แผนก 7\nแจ้งแอด-สินค้ามือ 2\nรอบ ${timeStr}\n\n`;
             res += `ลูกค้าเข้าโอเพ่นแชท : ${d.open}\nออกกลุ่ม : ${d.out}\nบล็อค : ${d.block}\nซ้ำ : ${d.dup}\nเหลือลูกค้า : ${d.remain}\n\n`;
             res += `กำลังโพสขาย : ${d.post}\nเข้ามาไม่โพส : ${d.nopost}\nเข้าไลน์ออฟ : ${d.line}\n\n`;
             res += `เปิดบิล : ${d.bill}\nเปิดบิลเชือด : ${d.cutCount}\nงานสุดท้าย : ${d.last}\nซ่อมแรก : ${d.r1}\nซ่อมสุดท้าย : ${d.rL}\n\n`;
-            
-            Object.keys(cutsMap).sort((a,b)=>a-b).forEach(p => {
-                res += `${Number(p).toLocaleString()} / ${cutsMap[p]}\n`;
-            });
-
-            document.getElementById('outAdd7').innerText = res;
-            document.getElementById('resAdd7').style.display = 'block';
+            Object.keys(cutsMap).sort((a,b)=>a-b).forEach(p => { res += `${Number(p).toLocaleString()} / ${cutsMap[p]}\n`; });
+            document.getElementById('outAdd7').innerText = res; document.getElementById('resAdd7').style.display = 'block';
         }
 
         function calculateMoney() {
-            const text = document.getElementById("inMoney").value.replace(/,/g, '');
-            let inP = 0, inM = 0, outM = 0;
-            text.split('\n').forEach(l => {
-                if (l.includes("总入款金额")) {
-                    let p = l.match(/(\d+)\s*人/); if(p) inP += parseInt(p[1]);
-                    let v = parseFloat(l.split(/[:：]/).pop()); if(!isNaN(v)) inM += v;
-                } else if (l.includes("出款") && !l.includes("-")) {
-                    let v = parseFloat(l.split(/[:：]/).pop()); if(!isNaN(v)) outM += v;
+            const input = document.getElementById("inMoney").value;
+            const lines = input.split('\n');
+            let totalInP = 0, totalInM = 0, totalOutM = 0;
+            lines.forEach(l => {
+                let s = l.trim().replace(/,/g, '');
+                if (s.includes("总入款金额")) {
+                    let pMatch = s.match(/(\d+)\s*人/);
+                    if (pMatch) totalInP += parseInt(pMatch[1]);
+                    let parts = s.split(/[:：]/);
+                    if (parts.length > 1) {
+                        let val = parseFloat(parts[parts.length - 1].trim());
+                        if (!isNaN(val)) totalInM += val;
+                    }
+                } else if (s.includes("出款") && !s.includes("-")) {
+                    let parts = s.split(/[:：]/);
+                    if (parts.length > 1) {
+                        let val = parseFloat(parts[parts.length - 1].trim());
+                        if (!isNaN(val)) totalOutM += val;
+                    }
                 }
             });
-            document.getElementById('outMoney').innerText = `🧧 凤凰集团 拜林 🧧\n\n💰รวมเข้า ${inP.toLocaleString()} คน : ${inM.toLocaleString()}\n💸ออก : ${outM.toLocaleString()}`;
+
+            // รายงานภาษาจีนเป๊ะๆ ตามที่มึงส่งมาล่าสุด
+            let resText = `🧧 凤凰集团 拜林最牛逼 🧧\n\n`;
+            resText += `💰总入款金额  ${totalInP.toLocaleString()} คน  : ${totalInM.toLocaleString()}\n`;
+            resText += `💸出款   :  ${totalOutM.toLocaleString()}`;
+
+            document.getElementById('outMoney').innerText = resText;
             document.getElementById('resMoney').style.display = 'block';
         }
 
