@@ -7,80 +7,25 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <style>
-        :root { 
-            --primary: #a855f7; 
-            --primary-glow: rgba(168, 85, 247, 0.4); 
-            --bg: #050208; 
-            --glass: rgba(30, 20, 40, 0.7); 
-            --glass-border: rgba(255, 255, 255, 0.08); 
-            --text: #ffffff; 
-        }
-        body { 
-            margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); 
-            background-image: radial-gradient(circle at 50% -20%, #3b0764, #050208); 
-            color: var(--text); display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; overflow-x: hidden; 
-        }
-
-        /* --- Login Page --- */
-        #login-page { 
-            display: flex; flex-direction: column; align-items: center; width: 100%; 
-            max-width: 400px; padding: 40px; background: var(--glass); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-            border-radius: 40px; border: 1px solid var(--glass-border); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center;
-        }
-        .pass-input { 
-            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--glass-border); 
-            background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 20px; 
-            outline: none; margin-top: 20px; box-sizing: border-box;
-        }
-        .btn-login { 
-            width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 15px; 
-            background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; 
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        /* --- Main Content --- */
+        /* --- CSS เหมือนเดิมเป๊ะ (ม่วง Luxury) --- */
+        :root { --primary: #a855f7; --primary-glow: rgba(168, 85, 247, 0.4); --bg: #050208; --glass: rgba(30, 20, 40, 0.7); --glass-border: rgba(255, 255, 255, 0.08); --text: #ffffff; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); background-image: radial-gradient(circle at 50% -20%, #3b0764, #050208); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        #login-page { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 400px; padding: 40px; background: var(--glass); backdrop-filter: blur(20px); border-radius: 40px; border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center; }
+        .pass-input { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 20px; outline: none; margin-top: 20px; box-sizing: border-box; }
+        .btn-login { width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 15px; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; box-shadow: 0 0 15px var(--primary-glow); }
         #main-content { display: none; width: 100%; max-width: 600px; padding: 20px; }
         .brand-logo { text-align: center; margin-bottom: 25px; display: flex; justify-content: center; }
-        .video-box { 
-            width: 130px; height: 130px; border-radius: 25px; overflow: hidden; 
-            border: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow); 
-        }
+        .video-box { width: 130px; height: 130px; border-radius: 25px; overflow: hidden; border: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow); }
         .video-box video { width: 100%; height: 100%; object-fit: cover; }
-        
-        .tabs { 
-            display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.03); 
-            padding: 6px; border-radius: 20px; border: 1px solid var(--glass-border); 
-        }
-        .tab-btn { 
-            flex: 1; padding: 14px 5px; background: transparent; border: none; color: #a1a1aa; 
-            cursor: pointer; border-radius: 15px; font-weight: 600; font-size: 13px; 
-        }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.03); padding: 6px; border-radius: 20px; border: 1px solid var(--glass-border); }
+        .tab-btn { flex: 1; padding: 14px 5px; background: transparent; border: none; color: #a1a1aa; cursor: pointer; border-radius: 15px; font-weight: 600; font-size: 13px; }
         .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 15px var(--primary-glow); }
-        
-        .main-panel { 
-            background: var(--glass); backdrop-filter: blur(25px); border-radius: 35px; 
-            padding: 30px; border: 1px solid var(--glass-border); 
-        }
+        .main-panel { background: var(--glass); backdrop-filter: blur(25px); border-radius: 35px; padding: 30px; border: 1px solid var(--glass-border); }
         .content-section { display: none; }
         .content-section.active { display: block; }
-        
-        textarea { 
-            width: 100%; height: 200px; padding: 18px; border-radius: 20px; border: 1px solid var(--glass-border); 
-            background: rgba(0,0,0,0.4); color: #fff; box-sizing: border-box; outline: none; margin-bottom: 20px; 
-        }
+        textarea { width: 100%; height: 200px; padding: 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.4); color: #fff; box-sizing: border-box; outline: none; margin-bottom: 20px; }
         .btn-calc { width: 100%; padding: 18px; border: none; border-radius: 18px; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; }
-        
-        /* ปุ่มออกจากระบบ (เท่ๆ) */
-        .btn-logout {
-            width: 100%; padding: 15px; margin-top: 30px; border: 1px solid rgba(255, 77, 77, 0.3);
-            border-radius: 18px; background: rgba(255, 77, 77, 0.1); color: #ff4d4d;
-            font-weight: 800; cursor: pointer; transition: 0.3s;
-        }
-        .btn-logout:hover { background: #ff4d4d; color: #fff; }
-
+        .btn-logout { width: 100%; padding: 15px; margin-top: 30px; border: 1px solid rgba(255, 77, 77, 0.3); border-radius: 18px; background: rgba(255, 77, 77, 0.1); color: #ff4d4d; font-weight: 800; cursor: pointer; }
         .result-box { background: #fff; color: #121212; border-radius: 22px; padding: 20px; margin-top: 25px; white-space: pre-wrap; font-weight: 700; font-family: monospace; }
         .btn-copy { width: 100%; padding: 14px; background: #121212; color: #fff; border: none; border-radius: 12px; margin-top: 15px; cursor: pointer; }
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 10px 30px; border-radius: 50px; display: none; font-weight: bold; z-index: 1000; }
@@ -92,8 +37,10 @@
     <div id="login-page">
         <div style="font-size: 55px;">🔒</div>
         <h1 style="margin:15px 0 5px; font-size:26px; letter-spacing: 2px;">PAILIN SECURITY</h1>
-        <p style="color:#a1a1aa; font-size:13px; margin-bottom: 20px;">กรุณากรอกรหัสเพื่อเข้าสู่ระบบ</p>
-        <input type="password" id="pass" class="pass-input" placeholder="PASSWORD">
+        <p style="color:#a1a1aa; font-size:13px; margin-bottom: 20px;">พิมพ์รหัสแล้วกด Enter ได้เลย</p>
+        
+        <input type="password" id="pass" class="pass-input" placeholder="PASSWORD" onkeydown="if(event.key === 'Enter') login()">
+        
         <button class="btn-login" onclick="login()">LOGIN SYSTEM</button>
         <p id="err" style="color: #ff4d4d; margin-top: 15px; display: none; font-weight: bold;">❌ รหัสผ่านไม่ถูกต้อง!</p>
     </div>
@@ -104,36 +51,26 @@
                 <video autoplay muted loop playsinline><source src="money.mp4" type="video/mp4"></video>
             </div>
         </div>
-
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(0)">📦 แผนก 7</button>
+            <button class="tab-btn active" onclick="switchTab(0)">📦 รวมแอดแผนก7</button>
             <button class="tab-btn" onclick="switchTab(1)">⏳ ยอดบริษัท</button>
             <button class="tab-btn" onclick="switchTab(2)">🔍 เช็ค QR</button>
         </div>
-
         <div class="main-panel">
             <div id="sec0" class="content-section active">
-                <textarea id="inAdd7" placeholder="วางข้อมูลยอดที่นี่..."></textarea>
-                <button class="btn-calc" onclick="calculateAdd7()">🚀 สรุปยอดแผนก 7</button>
-                <div id="resAdd7" style="display:none;" class="result-box"><p id="outAdd7"></p><button class="btn-copy" onclick="copyText('outAdd7')">📋 คัดลอกข้อมูล</button></div>
+                <textarea id="inAdd7" placeholder="วางยอดพนักงาน..."></textarea>
+                <button class="btn-calc" onclick="calculateAdd7()">🚀 สรุปแอดแผนก 7</button>
+                <div id="resAdd7" style="display:none;" class="result-box"><p id="outAdd7"></p><button class="btn-copy" onclick="copyText('outAdd7')">📋 คัดลอก</button></div>
             </div>
-
             <div id="sec1" class="content-section">
                 <textarea id="inMoney" placeholder="วางยอดจาก Telegram..."></textarea>
                 <button class="btn-calc" onclick="calculateMoney()">➕ รวมยอดบริษัท</button>
-                <div id="resMoney" style="display:none;" class="result-box"><p id="outMoney"></p><button class="btn-copy" onclick="copyText('outMoney')">📋 คัดลอกข้อมูล</button></div>
+                <div id="resMoney" style="display:none;" class="result-box"><p id="outMoney"></p><button class="btn-copy" onclick="copyText('outMoney')">📋 คัดลอก</button></div>
             </div>
-
             <div id="sec2" class="content-section">
-                <div style="border: 2px dashed var(--primary-glow); padding: 40px; border-radius: 25px; text-align: center; color: #a1a1aa; cursor: pointer;" onclick="document.body.focus()">
-                    📸 วางรูป QR Code
-                </div>
-                <div class="result-box" style="text-align:center;">
-                    <div id="outQR" style="font-size:30px; color:var(--primary); font-weight: 900;">-</div>
-                    <button class="btn-calc" style="margin-top:10px;" onclick="copyQR()">📋 คัดลอกเลขบัญชี</button>
-                </div>
+                <div style="border: 2px dashed var(--primary-glow); padding: 40px; border-radius: 25px; text-align: center; color: #a1a1aa; cursor: pointer;" onclick="document.body.focus()">📸 วางรูป QR Code</div>
+                <div class="result-box" style="text-align:center;"><div id="outQR" style="font-size:30px; color:var(--primary); font-weight:900;">-</div><button class="btn-calc" style="margin-top:10px;" onclick="copyQR()">📋 คัดลอก</button></div>
             </div>
-
             <button class="btn-logout" onclick="logout()">LOGOUT (ออกจากระบบ)</button>
         </div>
     </div>
@@ -142,18 +79,14 @@
     <canvas id="canvas"></canvas>
 
     <script>
-        const PASS = "777"; 
-        const EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24 ชม.
+        const PASS = "admin777"; 
+        const EXPIRE_TIME = 24 * 60 * 60 * 1000;
 
         function checkAuth() {
             const loginTime = localStorage.getItem('loginTime');
             const isAuth = localStorage.getItem('isAuth');
             if (isAuth === 'true' && loginTime) {
-                if (new Date().getTime() - loginTime < EXPIRE_TIME) {
-                    showMain();
-                } else {
-                    logout();
-                }
+                if (new Date().getTime() - loginTime < EXPIRE_TIME) { showMain(); } else { logout(); }
             }
         }
 
@@ -174,19 +107,14 @@
             document.body.style.paddingTop = '20px';
         }
 
-        function logout() {
-            localStorage.clear();
-            location.reload();
-        }
-
+        function logout() { localStorage.clear(); location.reload(); }
         function switchTab(idx) {
             document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
             document.querySelectorAll('.content-section').forEach((s, i) => s.classList.toggle('active', i === idx));
         }
 
-        // --- Logic คำนวณต่างๆ (เหมือนเดิมเป๊ะ) ---
+        // --- Logic คำนวณ (ครบถ้วนเหมือนเดิม) ---
         const getN = (s) => { let m = s.replace(/,/g, '').match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
-
         function calculateAdd7() {
             const input = document.getElementById('inAdd7').value;
             const lines = input.split('\n');
@@ -211,8 +139,7 @@
             });
             let res = `❗️แผนก 7\nรอบ ${new Date().getHours()}:${new Date().getMinutes()}\n\nลูกค้าเข้า : ${d.open}\nเหลือ : ${d.remain}\n\nเปิดบิล : ${d.bill}\nเปิดบิลเชือด : ${d.cutCount}\nงานสุดท้าย : ${d.last}\n\n`;
             Object.keys(cutsMap).sort((a,b)=>a-b).forEach(p => res += `${Number(p).toLocaleString()} / ${cutsMap[p]}\n`);
-            document.getElementById('outAdd7').innerText = res;
-            document.getElementById('resAdd7').style.display = 'block';
+            document.getElementById('outAdd7').innerText = res; document.getElementById('resAdd7').style.display = 'block';
         }
 
         function calculateMoney() {
@@ -242,8 +169,7 @@
                         ctx.drawImage(img,0,0);
                         const code = jsQR(ctx.getImageData(0,0,cvs.width,cvs.height).data, cvs.width, cvs.height);
                         if(code) { 
-                            let raw = code.data;
-                            let final = raw.length >= 55 ? raw.substring(40,55) : raw;
+                            let final = code.data.length >= 55 ? code.data.substring(40,55) : code.data;
                             document.getElementById('outQR').textContent = final; 
                             lastQR = final; switchTab(2); 
                         }
