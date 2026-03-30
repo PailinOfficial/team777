@@ -7,90 +7,95 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <style>
-        :root {
+        :root { 
             --primary: #a855f7; 
-            --primary-glow: rgba(168, 85, 247, 0.4);
-            --bg: #050208;
-            --glass: rgba(30, 20, 40, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
+            --primary-glow: rgba(168, 85, 247, 0.4); 
+            --bg: #050208; 
+            --glass: rgba(30, 20, 40, 0.7); 
+            --glass-border: rgba(255, 255, 255, 0.08); 
+            --text: #ffffff; 
+        }
+        body { 
+            margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); 
+            background-image: radial-gradient(circle at 50% -20%, #3b0764, #050208); 
+            color: var(--text); display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow-x: hidden; 
         }
 
-        body {
-            margin: 0; font-family: 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg); background-image: radial-gradient(circle at 50% -20%, #3b0764, #050208);
-            color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden;
+        /* --- Login Page --- */
+        #login-page { 
+            display: flex; flex-direction: column; align-items: center; width: 100%; 
+            max-width: 400px; padding: 40px; background: var(--glass); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border-radius: 40px; border: 1px solid var(--glass-border); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center;
+        }
+        .pass-input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 20px; 
+            outline: none; margin-top: 20px; box-sizing: border-box;
+        }
+        .btn-login { 
+            width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 15px; 
+            background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; 
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* --- Login Section --- */
-        #login-page {
-            display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 400px;
-            padding: 40px; background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px; border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 0.8s ease-out; z-index: 999;
-        }
-        #login-page h1 { font-size: 24px; margin-bottom: 30px; text-shadow: 0 0 15px var(--primary-glow); }
-        .pass-input {
-            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.3); color: #fff; text-align: center; font-size: 20px; letter-spacing: 5px; outline: none;
-        }
-        .btn-login {
-            width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 15px;
-            background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; transition: 0.3s;
-        }
-        .btn-login:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary-glow); }
-
-        /* --- Main Content (Hidden by default) --- */
-        #main-content { display: none; width: 100%; max-width: 600px; padding: 20px; animation: slideUp 0.6s ease-out; }
-
+        /* --- Main Content --- */
+        #main-content { display: none; width: 100%; max-width: 600px; padding: 20px; }
         .brand-logo { text-align: center; margin-bottom: 25px; display: flex; justify-content: center; }
-        .video-box {
-            width: 130px; height: 130px; border-radius: 25px; overflow: hidden;
-            border: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow);
+        .video-box { 
+            width: 130px; height: 130px; border-radius: 25px; overflow: hidden; 
+            border: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow); 
         }
         .video-box video { width: 100%; height: 100%; object-fit: cover; }
-
-        .tabs {
-            display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.03);
-            padding: 6px; border-radius: 20px; border: 1px solid var(--glass-border);
+        
+        .tabs { 
+            display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.03); 
+            padding: 6px; border-radius: 20px; border: 1px solid var(--glass-border); 
         }
-        .tab-btn {
-            flex: 1; padding: 14px 5px; background: transparent; border: none; color: #a1a1aa;
-            cursor: pointer; border-radius: 15px; font-weight: 600; font-size: 13px; transition: 0.3s;
+        .tab-btn { 
+            flex: 1; padding: 14px 5px; background: transparent; border: none; color: #a1a1aa; 
+            cursor: pointer; border-radius: 15px; font-weight: 600; font-size: 13px; 
         }
         .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 15px var(--primary-glow); }
-
-        .main-panel {
-            background: var(--glass); backdrop-filter: blur(25px); border-radius: 35px;
-            padding: 30px; border: 1px solid var(--glass-border); box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        
+        .main-panel { 
+            background: var(--glass); backdrop-filter: blur(25px); border-radius: 35px; 
+            padding: 30px; border: 1px solid var(--glass-border); 
         }
         .content-section { display: none; }
         .content-section.active { display: block; }
-
-        textarea {
-            width: 100%; height: 230px; padding: 18px; border-radius: 20px; border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.4); color: #fff; box-sizing: border-box; outline: none; margin-bottom: 20px;
+        
+        textarea { 
+            width: 100%; height: 200px; padding: 18px; border-radius: 20px; border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.4); color: #fff; box-sizing: border-box; outline: none; margin-bottom: 20px; 
         }
         .btn-calc { width: 100%; padding: 18px; border: none; border-radius: 18px; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; }
-        .result-box { background: #fff; color: #121212; border-radius: 22px; padding: 20px; margin-top: 25px; white-space: pre-wrap; font-weight: 700; }
+        
+        /* ปุ่มออกจากระบบ (เท่ๆ) */
+        .btn-logout {
+            width: 100%; padding: 15px; margin-top: 30px; border: 1px solid rgba(255, 77, 77, 0.3);
+            border-radius: 18px; background: rgba(255, 77, 77, 0.1); color: #ff4d4d;
+            font-weight: 800; cursor: pointer; transition: 0.3s;
+        }
+        .btn-logout:hover { background: #ff4d4d; color: #fff; }
+
+        .result-box { background: #fff; color: #121212; border-radius: 22px; padding: 20px; margin-top: 25px; white-space: pre-wrap; font-weight: 700; font-family: monospace; }
         .btn-copy { width: 100%; padding: 14px; background: #121212; color: #fff; border: none; border-radius: 12px; margin-top: 15px; cursor: pointer; }
-
-        .qr-area { border: 2px dashed var(--primary-glow); padding: 40px; border-radius: 25px; text-align: center; color: #a1a1aa; cursor: pointer; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 10px 30px; border-radius: 50px; display: none; font-weight: bold; z-index: 1000; }
         canvas { display: none; }
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 10px 30px; border-radius: 50px; display: none; font-weight: bold; }
     </style>
 </head>
-<body>
+<body onload="checkAuth()">
 
     <div id="login-page">
-        <div style="font-size: 50px; margin-bottom: 15px;">💎</div>
-        <h1>PAILIN ACCESS</h1>
-        <input type="password" id="pass" class="pass-input" placeholder="••••">
-        <button class="btn-login" onclick="checkPass()">ENTER SYSTEM</button>
-        <p id="err" style="color: #ff4d4d; margin-top: 15px; font-size: 14px; display: none;">รหัสไม่ถูกต้องเพื่อน!</p>
+        <div style="font-size: 55px;">🔒</div>
+        <h1 style="margin:15px 0 5px; font-size:26px; letter-spacing: 2px;">PAILIN SECURITY</h1>
+        <p style="color:#a1a1aa; font-size:13px; margin-bottom: 20px;">กรุณากรอกรหัสเพื่อเข้าสู่ระบบ</p>
+        <input type="password" id="pass" class="pass-input" placeholder="PASSWORD">
+        <button class="btn-login" onclick="login()">LOGIN SYSTEM</button>
+        <p id="err" style="color: #ff4d4d; margin-top: 15px; display: none; font-weight: bold;">❌ รหัสผ่านไม่ถูกต้อง!</p>
     </div>
 
     <div id="main-content">
@@ -108,30 +113,28 @@
 
         <div class="main-panel">
             <div id="sec0" class="content-section active">
-                <textarea id="inAdd7" placeholder="วางยอดพนักงานที่นี่..."></textarea>
+                <textarea id="inAdd7" placeholder="วางข้อมูลยอดที่นี่..."></textarea>
                 <button class="btn-calc" onclick="calculateAdd7()">🚀 สรุปยอดแผนก 7</button>
-                <div id="resAdd7" style="display:none;" class="result-box">
-                    <p id="outAdd7"></p>
-                    <button class="btn-copy" onclick="copyText('outAdd7')">📋 คัดลอกรายงาน</button>
-                </div>
+                <div id="resAdd7" style="display:none;" class="result-box"><p id="outAdd7"></p><button class="btn-copy" onclick="copyText('outAdd7')">📋 คัดลอกข้อมูล</button></div>
             </div>
 
             <div id="sec1" class="content-section">
-                <textarea id="inMoney" placeholder="วางยอด Telegram..."></textarea>
-                <button class="btn-calc" onclick="calculateMoney()">➕ รวมยอดทั้งหมด</button>
-                <div id="resMoney" style="display:none;" class="result-box">
-                    <p id="outMoney"></p>
-                    <button class="btn-copy" onclick="copyText('outMoney')">📋 คัดลอกยอดรวม</button>
-                </div>
+                <textarea id="inMoney" placeholder="วางยอดจาก Telegram..."></textarea>
+                <button class="btn-calc" onclick="calculateMoney()">➕ รวมยอดบริษัท</button>
+                <div id="resMoney" style="display:none;" class="result-box"><p id="outMoney"></p><button class="btn-copy" onclick="copyText('outMoney')">📋 คัดลอกข้อมูล</button></div>
             </div>
 
             <div id="sec2" class="content-section">
-                <div class="qr-area" onclick="document.body.focus()">📸 วางรูป QR ที่นี่</div>
+                <div style="border: 2px dashed var(--primary-glow); padding: 40px; border-radius: 25px; text-align: center; color: #a1a1aa; cursor: pointer;" onclick="document.body.focus()">
+                    📸 วางรูป QR Code
+                </div>
                 <div class="result-box" style="text-align:center;">
-                    <div id="outQR" style="font-size:30px; color:var(--primary); font-weight:900;">-</div>
+                    <div id="outQR" style="font-size:30px; color:var(--primary); font-weight: 900;">-</div>
                     <button class="btn-calc" style="margin-top:10px;" onclick="copyQR()">📋 คัดลอกเลขบัญชี</button>
                 </div>
             </div>
+
+            <button class="btn-logout" onclick="logout()">LOGOUT (ออกจากระบบ)</button>
         </div>
     </div>
 
@@ -139,17 +142,41 @@
     <canvas id="canvas"></canvas>
 
     <script>
-        const PASS = "admin777"; // <--- แก้รหัสผ่านตรงนี้เพื่อน!
-        let lastQR = "";
+        const PASS = "777"; 
+        const EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24 ชม.
 
-        function checkPass() {
-            if(document.getElementById('pass').value === PASS) {
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                document.body.style.alignItems = 'flex-start';
+        function checkAuth() {
+            const loginTime = localStorage.getItem('loginTime');
+            const isAuth = localStorage.getItem('isAuth');
+            if (isAuth === 'true' && loginTime) {
+                if (new Date().getTime() - loginTime < EXPIRE_TIME) {
+                    showMain();
+                } else {
+                    logout();
+                }
+            }
+        }
+
+        function login() {
+            if (document.getElementById('pass').value === PASS) {
+                localStorage.setItem('isAuth', 'true');
+                localStorage.setItem('loginTime', new Date().getTime());
+                showMain();
             } else {
                 document.getElementById('err').style.display = 'block';
             }
+        }
+
+        function showMain() {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.body.style.alignItems = 'flex-start';
+            document.body.style.paddingTop = '20px';
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
         }
 
         function switchTab(idx) {
@@ -157,42 +184,32 @@
             document.querySelectorAll('.content-section').forEach((s, i) => s.classList.toggle('active', i === idx));
         }
 
+        // --- Logic คำนวณต่างๆ (เหมือนเดิมเป๊ะ) ---
         const getN = (s) => { let m = s.replace(/,/g, '').match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
 
         function calculateAdd7() {
             const input = document.getElementById('inAdd7').value;
             const lines = input.split('\n');
-            let d = { open:0, out:0, block:0, dup:0, remain:0, post:0, nopost:0, line:0, bill:0, cutCount:0, last:0, r1:0, rL:0 };
+            let d = { open:0, remain:0, bill:0, cutCount:0, last:0 };
             let cutsMap = {};
-
-            lines.forEach(line => {
-                let l = line.trim().replace(/：/g, ':');
-                if (l === "") return;
-                if (l.includes('เข้าโอเพ่นแชท')) d.open += getN(l);
-                if (l.includes('ออกกลุ่ม')) d.out += getN(l);
-                if (l.includes('เหลือลูกค้า')) d.remain += getN(l);
-                if (l.includes('กำลังโพสขาย')) d.post += getN(l);
-                if (l.includes('เปิดบิล') && !l.includes('เชือด')) d.bill += getN(l);
-                if (l.includes('งานสุดท้าย')) d.last += getN(l);
-
-                if (l.includes('เปิดบิลเชือด')) {
-                    let matches = l.match(/(\d+[,.]?\d*)\s*\/\s*(\d+[,.]?\d*)/g);
-                    if (matches) {
-                        matches.forEach(m => {
-                            let p = m.split('/');
-                            let v1 = parseInt(p[0].replace(/,/g, ''));
-                            let v2 = parseInt(p[1].replace(/,/g, ''));
-                            let pr = v1 > v2 ? v1 : v2;
-                            let ct = v1 > v2 ? v2 : v1;
-                            d.cutCount += ct;
-                            cutsMap[pr] = (cutsMap[pr] || 0) + ct;
-                        });
-                    }
+            lines.forEach(l => {
+                let s = l.trim();
+                if (s.includes('เข้าโอเพ่นแชท')) d.open += getN(s);
+                if (s.includes('เหลือลูกค้า')) d.remain += getN(s);
+                if (s.includes('เปิดบิล') && !s.includes('เชือด')) d.bill += getN(s);
+                if (s.includes('งานสุดท้าย')) d.last += getN(s);
+                if (s.includes('เปิดบิลเชือด')) {
+                    let m = s.match(/(\d+[,.]?\d*)\s*\/\s*(\d+[,.]?\d*)/g);
+                    if (m) { m.forEach(x => {
+                        let p = x.split('/');
+                        let v1 = parseInt(p[0].replace(/,/g, ''));
+                        let v2 = parseInt(p[1].replace(/,/g, ''));
+                        let pr = v1 > v2 ? v1 : v2; let ct = v1 > v2 ? v2 : v1;
+                        d.cutCount += ct; cutsMap[pr] = (cutsMap[pr] || 0) + ct;
+                    }); }
                 }
             });
-
-            let res = `❗️แผนก 7\nรอบ ${new Date().getHours()}:${new Date().getMinutes()}\n\n`;
-            res += `ลูกค้าเข้า : ${d.open}\nเหลือลูกค้า : ${d.remain}\n\nเปิดบิล : ${d.bill}\nเปิดบิลเชือด : ${d.cutCount}\nงานสุดท้าย : ${d.last}\n\n`;
+            let res = `❗️แผนก 7\nรอบ ${new Date().getHours()}:${new Date().getMinutes()}\n\nลูกค้าเข้า : ${d.open}\nเหลือ : ${d.remain}\n\nเปิดบิล : ${d.bill}\nเปิดบิลเชือด : ${d.cutCount}\nงานสุดท้าย : ${d.last}\n\n`;
             Object.keys(cutsMap).sort((a,b)=>a-b).forEach(p => res += `${Number(p).toLocaleString()} / ${cutsMap[p]}\n`);
             document.getElementById('outAdd7').innerText = res;
             document.getElementById('resAdd7').style.display = 'block';
@@ -224,7 +241,12 @@
                         cvs.width = img.width; cvs.height = img.height;
                         ctx.drawImage(img,0,0);
                         const code = jsQR(ctx.getImageData(0,0,cvs.width,cvs.height).data, cvs.width, cvs.height);
-                        if(code) { lastQR = code.data.length >= 55 ? code.data.substring(40,55) : code.data; document.getElementById('outQR').textContent = lastQR; switchTab(2); }
+                        if(code) { 
+                            let raw = code.data;
+                            let final = raw.length >= 55 ? raw.substring(40,55) : raw;
+                            document.getElementById('outQR').textContent = final; 
+                            lastQR = final; switchTab(2); 
+                        }
                     };
                 };
                 reader.readAsDataURL(item.getAsFile());
